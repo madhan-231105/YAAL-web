@@ -1,18 +1,33 @@
-// src/App.jsx
 import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import FloatingWhatsApp from './components/FloatingWhatsApp';
+
+import Home from './pages/Home';
+import JewelleryRental from './pages/JewelleryRental';
+import SareeDraping from './pages/SareeDraping';
+import PlateDecoration from './pages/PlateDecoration';
 
 function App() {
   return (
-    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-md text-center">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">
-          Welcome to React + Tailwind!
-        </h1>
-        <p className="text-gray-600">
-          This is your default <code>App.jsx</code> using Tailwind CSS.
-        </p>
+    <Router>
+      <div className="flex flex-col min-h-screen bg-slate-50">
+        <Navbar />
+        
+        <main className="flex-grow">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/jewellery" element={<JewelleryRental />} />
+            <Route path="/saree-draping" element={<SareeDraping />} />
+            <Route path="/plate-decoration" element={<PlateDecoration />} />
+          </Routes>
+        </main>
+        
+        <Footer />
+        <FloatingWhatsApp />
       </div>
-    </div>
+    </Router>
   );
 }
 
