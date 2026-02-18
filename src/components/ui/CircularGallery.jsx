@@ -397,22 +397,24 @@ class App {
     this.scroll.last = this.scroll.current;
     this.raf = window.requestAnimationFrame(this.update.bind(this));
   }
-  addEventListeners() {
-    this.boundOnResize = this.onResize.bind(this);
-    this.boundOnWheel = this.onWheel.bind(this);
-    this.boundOnTouchDown = this.onTouchDown.bind(this);
-    this.boundOnTouchMove = this.onTouchMove.bind(this);
-    this.boundOnTouchUp = this.onTouchUp.bind(this);
-    window.addEventListener('resize', this.boundOnResize);
-    window.addEventListener('mousewheel', this.boundOnWheel);
-    window.addEventListener('wheel', this.boundOnWheel);
-    window.addEventListener('mousedown', this.boundOnTouchDown);
-    window.addEventListener('mousemove', this.boundOnTouchMove);
-    window.addEventListener('mouseup', this.boundOnTouchUp);
-    window.addEventListener('touchstart', this.boundOnTouchDown);
-    window.addEventListener('touchmove', this.boundOnTouchMove);
-    window.addEventListener('touchend', this.boundOnTouchUp);
-  }
+addEventListeners() {
+  this.boundOnResize = this.onResize.bind(this);
+  this.boundOnWheel = this.onWheel.bind(this);
+  this.boundOnTouchDown = this.onTouchDown.bind(this);
+  this.boundOnTouchMove = this.onTouchMove.bind(this);
+  this.boundOnTouchUp = this.onTouchUp.bind(this);
+
+  window.addEventListener('resize', this.boundOnResize);
+  window.addEventListener('mousewheel', this.boundOnWheel);
+  window.addEventListener('wheel', this.boundOnWheel);
+  window.addEventListener('mousedown', this.boundOnTouchDown);
+  window.addEventListener('mousemove', this.boundOnTouchMove);
+  window.addEventListener('mouseup', this.boundOnTouchUp);
+  window.addEventListener('touchstart', this.boundOnTouchDown);
+  window.addEventListener('touchmove', this.boundOnTouchMove);
+  window.addEventListener('touchend', this.boundOnTouchUp);
+}
+
   destroy() {
     window.cancelAnimationFrame(this.raf);
     window.removeEventListener('resize', this.boundOnResize);
