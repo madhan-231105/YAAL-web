@@ -1,29 +1,22 @@
 # dependencies
 node_modules/
 
-# production
+# vite cache
+.vite/
+
+# build output
 dist/
-build/
+
+# environment files
+.env
+.env.*
 
 # logs
 npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
-# environment variables
-.env
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-
-# OS files
-.DS_Store
-Thumbs.db
 
 # IDE
 .vscode/
 .idea/
 
-# coverage
-coverage/
+# OS
+.DS_Store
