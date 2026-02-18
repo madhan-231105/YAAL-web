@@ -311,30 +311,54 @@ class App {
       widthSegments: 100
     });
   }
-  createMedias(items, textColor, borderRadius, font) {
-    const defaultItems = [
-       { image: `https://picsum.photos/seed/1/800/600?grayscale`, text: 'Bridge' }
-    ];
-    const galleryItems = items && items.length ? items : defaultItems;
-    this.mediasImages = galleryItems.concat(galleryItems);
-    this.medias = this.mediasImages.map((data, index) => {
-      return new Media({
-        geometry: this.planeGeometry,
-        gl: this.gl,
-        image: data.image,
-        index,
-        length: this.mediasImages.length,
-        renderer: this.renderer,
-        scene: this.scene,
-        screen: this.screen,
-        text: data.text,
-        viewport: this.viewport,
-        textColor,
-        borderRadius,
-        font
-      });
+createMedias(items, textColor, borderRadius, font) {
+  const defaultItems = [
+    {
+      image: "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?w=800&q=80",
+      text: "Bridal Necklace"
+    },
+    {
+      image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&q=80",
+      text: "Temple Jewellery"
+    },
+    {
+      image: "https://images.unsplash.com/photo-1617038220319-276d3cfab638?w=800&q=80",
+      text: "Antique Gold Set"
+    },
+    {
+      image: "https://images.unsplash.com/photo-1627293509201-68bfc7f5d95c?w=800&q=80",
+      text: "Wedding Choker"
+    },
+    {
+      image: "https://images.unsplash.com/photo-1588444650700-6d5a3b5f8d08?w=800&q=80",
+      text: "Kundan Collection"
+    }
+  ];
+
+  // Always use jewellery images
+  const galleryItems = defaultItems;
+
+  this.mediasImages = galleryItems.concat(galleryItems);
+
+  this.medias = this.mediasImages.map((data, index) => {
+    return new Media({
+      geometry: this.planeGeometry,
+      gl: this.gl,
+      image: data.image,
+      index,
+      length: this.mediasImages.length,
+      renderer: this.renderer,
+      scene: this.scene,
+      screen: this.screen,
+      text: data.text,
+      viewport: this.viewport,
+      textColor,
+      borderRadius,
+      font
     });
-  }
+  });
+}
+
   onTouchDown(e) {
     this.isDown = true;
     this.scroll.position = this.scroll.current;

@@ -330,42 +330,73 @@ class App {
       widthSegments: 100
     });
   }
-  createMedias(items, bend = 1, textColor, borderRadius, font) {
-    const defaultItems = [
-      { image: `https://picsum.photos/seed/1/800/600?grayscale`, text: 'Bridge' },
-      { image: `https://picsum.photos/seed/2/800/600?grayscale`, text: 'Desk Setup' },
-      { image: `https://picsum.photos/seed/3/800/600?grayscale`, text: 'Waterfall' },
-      { image: `https://picsum.photos/seed/4/800/600?grayscale`, text: 'Strawberries' },
-      { image: `https://picsum.photos/seed/5/800/600?grayscale`, text: 'Deep Diving' },
-      { image: `https://picsum.photos/seed/16/800/600?grayscale`, text: 'Train Track' },
-      { image: `https://picsum.photos/seed/17/800/600?grayscale`, text: 'Santorini' },
-      { image: `https://picsum.photos/seed/8/800/600?grayscale`, text: 'Blurry Lights' },
-      { image: `https://picsum.photos/seed/9/800/600?grayscale`, text: 'New York' },
-      { image: `https://picsum.photos/seed/10/800/600?grayscale`, text: 'Good Boy' },
-      { image: `https://picsum.photos/seed/21/800/600?grayscale`, text: 'Coastline' },
-      { image: `https://picsum.photos/seed/12/800/600?grayscale`, text: 'Palm Trees' }
-    ];
-    const galleryItems = items && items.length ? items : defaultItems;
-    this.mediasImages = galleryItems.concat(galleryItems);
-    this.medias = this.mediasImages.map((data, index) => {
-      return new Media({
-        geometry: this.planeGeometry,
-        gl: this.gl,
-        image: data.image,
-        index,
-        length: this.mediasImages.length,
-        renderer: this.renderer,
-        scene: this.scene,
-        screen: this.screen,
-        text: data.text,
-        viewport: this.viewport,
-        bend,
-        textColor,
-        borderRadius,
-        font
-      });
+ createMedias(items, bend = 1, textColor, borderRadius, font) {
+  const defaultItems = [
+    {
+      image: "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?w=800&q=80",
+      text: "Bridal Necklace"
+    },
+    {
+      image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&q=80",
+      text: "Temple Jewellery"
+    },
+    {
+      image: "https://images.unsplash.com/photo-1617038220319-276d3cfab638?w=800&q=80",
+      text: "Antique Gold Set"
+    },
+    {
+      image: "https://images.unsplash.com/photo-1627293509201-68bfc7f5d95c?w=800&q=80",
+      text: "Wedding Choker"
+    },
+    {
+      image: "https://images.unsplash.com/photo-1588444650700-6d5a3b5f8d08?w=800&q=80",
+      text: "Kundan Collection"
+    },
+    {
+      image: "https://images.unsplash.com/photo-1635767798638-3665c6a2b1a4?w=800&q=80",
+      text: "Royal Bridal Set"
+    },
+    {
+      image: "https://images.unsplash.com/photo-1603569283847-aa295f0d016a?w=800&q=80",
+      text: "South Indian Haram"
+    },
+    {
+      image: "https://images.unsplash.com/photo-1602810316693-3667c854239a?w=800&q=80",
+      text: "Diamond Necklace"
+    },
+    {
+      image: "https://images.unsplash.com/photo-1620116306791-0e9f5a353a1a?w=800&q=80",
+      text: "Gold Bridal Bangles"
+    },
+    {
+      image: "https://images.unsplash.com/photo-1583394838336-acd977736f90?w=800&q=80",
+      text: "Engagement Ring"
+    }
+  ];
+
+  const galleryItems = items && items.length ? items : defaultItems;
+
+  this.mediasImages = galleryItems.concat(galleryItems);
+
+  this.medias = this.mediasImages.map((data, index) => {
+    return new Media({
+      geometry: this.planeGeometry,
+      gl: this.gl,
+      image: data.image,
+      index,
+      length: this.mediasImages.length,
+      renderer: this.renderer,
+      scene: this.scene,
+      screen: this.screen,
+      text: data.text,
+      viewport: this.viewport,
+      textColor,
+      borderRadius,
+      font
     });
-  }
+  });
+}
+
   onTouchDown(e) {
     this.isDown = true;
     this.scroll.position = this.scroll.current;
