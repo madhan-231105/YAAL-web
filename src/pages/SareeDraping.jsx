@@ -24,7 +24,7 @@ const images = [
 
       <div className="mt-12 text-center">
         <a 
-          href="https://wa.me/919876543210?text=Hi%2C%20I%20am%20interested%20in%20Saree%20Draping%20services."
+          href="https://wa.me/919080533611?text=Hi%2C%20I%20am%20interested%20in%20Saree%20Draping%20services."
           target="_blank"
           rel="noreferrer"
           className="inline-block bg-gold text-white px-8 py-3 rounded-md hover:bg-gold-dark transition-colors text-lg"
