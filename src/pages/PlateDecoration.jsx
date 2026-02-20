@@ -2,9 +2,9 @@ import React from 'react';
 
 const PlateDecoration = () => {
   const plates = [
-    "https://images.unsplash.com/photo-1513151233558-d860c5398176?w=800",
-    "https://images.unsplash.com/photo-1562447551-d4a923055403?w=800",
-    "https://images.unsplash.com/photo-1604245601262-1d701633513a?w=800",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1Cvcd4si3Vcq4CMDwy0ZED0IpVWdVwvQaKQ&s",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQK1b7n40fP3Vl27lrBStnXsrVIjtIzhcKjRQ&s",
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGcDGb0ecCgr9b9Y6bEwQsvaQyVLZssKRsBg&s",
   ];
 
   return (

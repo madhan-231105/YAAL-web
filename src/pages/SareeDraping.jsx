@@ -2,12 +2,11 @@ import React from 'react';
 
 const SareeDraping = () => {
   // Using placeholders for gallery
-  const images = [
-    "https://images.unsplash.com/photo-1610189012906-47833cc1574e?w=800",
-    "https://images.unsplash.com/photo-1595981267035-7b04ca84a82d?w=800",
-    "https://images.unsplash.com/photo-1583391726438-b71578e71852?w=800",
-  ];
-
+const images = [
+  "https://thumbs.dreamstime.com/b/indian-silk-saree-14348643.jpg?w=768", // Indian silk saree
+  "https://thumbs.dreamstime.com/b/indian-saree-design-19704685.jpg?w=768", // Traditional wedding saree
+  "https://thumbs.dreamstime.com/b/traditional-kubera-silk-cotton-saree-salem-tamil-nadu-elegant-handloom-design-close-up-image-beautifully-woven-made-414160694.jpg?w=1400"  // Elegant saree fashion portrait
+];
   return (
     <div className="pt-10 pb-20 max-w-7xl mx-auto px-4">
       <div className="text-center mb-12">
