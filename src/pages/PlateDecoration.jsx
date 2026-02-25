@@ -236,194 +236,285 @@ const styles = {
 =======
 import React, { useState, useEffect } from "react";
 
-/* IMAGE SETS */
-const imageSets = [
-  [
-    "https://images.unsplash.com/photo-1519741497674-611481863552?w=1200",
-    "https://images.unsplash.com/photo-1606800052052-a08af7148866?w=1200",
-    "https://images.unsplash.com/photo-1529636798458-92182e662485?w=1200",
-  ],
-  [
-    "https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=1200",
-    "https://images.unsplash.com/photo-1507504031003-b417219a0fde?w=1200",
-    "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?w=1200",
-  ],
-  [
-    "https://images.unsplash.com/photo-1499914485622-a88fac536970?w=1200",
-    "https://images.unsplash.com/photo-1472653816316-3ad6f10a6592?w=1200",
-    "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=1200",
-  ],
-  [
-    "https://images.unsplash.com/photo-1511988617509-a57c8a288659?w=1200",
-    "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=1200",
-    "https://images.unsplash.com/photo-1520975922284-9fbb9f2dfc88?w=1200",
-  ],
-  [
-    "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=1200",
-    "https://images.unsplash.com/photo-1506869640319-fe1a24fd76dc?w=1200",
-    "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=1200",
-  ],
-  [
-    "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=1200",
-    "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=1200",
-    "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=1200",
-  ],
-];
+export default function PlateDecoration() {
+  const slides = [
+    {
+      image:
+        "https://images.unsplash.com/photo-1606800052052-a08af7148866?w=1600&q=80",
+      title: "Royal Red Seer Set",
+      description:
+        "Traditional red and gold arrangement curated for grand South Indian weddings.",
+    },
+    {
+      image:
+        "https://images.unsplash.com/photo-1519741497674-611481863552?w=1600&q=80",
+      title: "Floral Luxury Theme",
+      description:
+        "Soft pastel floral styling with elegant gold finishing details.",
+    },
+    {
+      image:
+        "https://images.unsplash.com/photo-1529636798458-92182e662485?w=1600&q=80",
+      title: "Temple Inspired Design",
+      description:
+        "Classic temple jewelry concept infused into traditional plate décor.",
+    },
+  ];
 
-/* SOLITAIRE CARD */
-function AutoCard({ images }) {
   const [index, setIndex] = useState(0);
-  const [hover, setHover] = useState(false);
+
+  const nextSlide = () =>
+    setIndex((prev) => (prev + 1) % slides.length);
+
+  const prevSlide = () =>
+    setIndex((prev) =>
+      prev === 0 ? slides.length - 1 : prev - 1
+    );
 
   useEffect(() => {
-    if (hover) return;
-    const interval = setInterval(() => {
-      setIndex((prev) => (prev + 1) % images.length);
-    }, 3200);
+    const interval = setInterval(nextSlide, 5000);
     return () => clearInterval(interval);
-  }, [images.length, hover]);
-
-  const getImage = (offset) =>
-    images[(index + offset) % images.length];
+  }, []);
 
   return (
-    <div
-      className="relative w-full h-[450px] md:h-[520px]"
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-    >
-      {/* Back */}
-      <img
-        src={getImage(1)}
-        alt=""
-        className="absolute inset-0 w-full h-full object-cover
-        rounded-2xl scale-95 translate-y-6 opacity-80
-        transition-all duration-1000 ease-in-out"
-      />
+    <div className="font-sans">
 
-      {/* Front */}
-      <img
-        key={index}
-        src={getImage(0)}
-        alt=""
-        className={`absolute inset-0 w-full h-full object-cover
-        rounded-2xl
-        shadow-[0_40px_100px_rgba(139,107,31,0.45)]
-        transition-all duration-1000 ease-in-out
-        ${hover ? "scale-110" : "animate-solitaire"}`}
-      />
-    </div>
-  );
-}
+      {/* HERO — BLACK (Service Style) */}
+      <section className="bg-[#050505] text-[#F2F2F2] py-36 text-center px-6">
 
-export default function PlateDecoration() {
-  return (
-    <div className="relative min-h-screen bg-[#0a0a0a] overflow-hidden text-white">
+        <p className="text-sm tracking-[0.3em] text-[#D4AF37] mb-6">
+          PLATE DECORATIONS
+        </p>
 
-      {/* DARK AMBIENT GOLD LIGHT */}
-      <div className="pointer-events-none fixed inset-0 z-0">
-        <div className="absolute inset-0 
-          bg-[radial-gradient(circle_at_top,_rgba(139,107,31,0.15),_transparent_60%)]">
-        </div>
-        <div className="absolute inset-0 
-          bg-[radial-gradient(circle_at_bottom,_rgba(110,83,24,0.12),_transparent_60%)]">
-        </div>
-      </div>
-
-      {/* STRONG VIGNETTE */}
-      <div className="pointer-events-none fixed inset-0 z-0">
-        <div className="absolute inset-0 
-          bg-[radial-gradient(circle_at_center,_transparent_40%,_rgba(0,0,0,0.9)_100%)]">
-        </div>
-      </div>
-
-      {/* THORANAM GARLAND */}
-      <div className="pointer-events-none absolute top-0 left-0 w-full z-0 flex justify-center">
-        <div className="relative w-[90%] h-[140px]">
-
-          {/* Main hanging curve */}
-          <div className="absolute top-8 left-0 right-0 h-[2px] 
-            bg-gradient-to-r from-transparent via-[#6E5318] to-transparent opacity-60">
-          </div>
-
-          {/* Hanging vertical elements */}
-          {[...Array(9)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute top-8 w-[2px] h-[45px] bg-[#5A4414] opacity-50"
-              style={{
-                left: `${(i + 1) * 10}%`,
-                transform: `rotate(${i % 2 === 0 ? "-6deg" : "6deg"})`
-              }}
-            />
-          ))}
-        </div>
-      </div>
-
-      {/* HERO */}
-      <section className="relative text-center py-36 px-6 z-10">
-        <h1 className="text-6xl md:text-8xl font-serif font-bold leading-tight">
-          Wedding Plate
-          <br />
-          <span className="bg-gradient-to-r from-[#6E5318] via-[#8B6B1F] to-[#5A4414] bg-clip-text text-transparent">
-            Decoration
+        <h1 className="text-4xl md:text-6xl font-serif leading-tight">
+          Traditional Wedding Plate <br />
+          <span className="bg-gradient-to-r from-[#9F7928] via-[#D4AF37] to-[#B38728] bg-clip-text text-transparent">
+            Curation
           </span>
         </h1>
 
-        <p className="text-gray-400 mt-8 text-lg tracking-wide">
-          Customized Seer Varisai Plates
+        <div className="w-24 h-[2px] bg-[#D4AF37] mx-auto mt-8"></div>
+
+        <p className="max-w-2xl mx-auto mt-10 text-gray-300 text-lg leading-relaxed">
+          Customized wedding plate arrangements designed
+          to reflect tradition, elegance, and celebration.
         </p>
+
       </section>
 
-      {/* GALLERY */}
-      <section className="relative bg-white text-black px-8 md:px-28 py-32 rounded-t-[60px] z-10">
-        <h2 className="text-4xl md:text-5xl font-serif text-center mb-20">
-          <span className="text-gray-900">Featured </span>
-          <span className="bg-gradient-to-r from-[#6E5318] via-[#8B6B1F] to-[#5A4414] bg-clip-text text-transparent">
-            Designs
-          </span>
-        </h2>
+      {/* SHOWCASE — WHITE WITH GOLD GLOW */}
+      <section className="relative bg-[#F8F6F2] py-36 px-6 md:px-20 text-center overflow-hidden">
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-16">
-          {imageSets.map((set, i) => (
-            <AutoCard key={i} images={set} />
-          ))}
+        {/* GOLD GLOW */}
+        <div className="absolute inset-0 flex justify-center pointer-events-none">
+          <div className="w-[650px] h-[650px]
+          bg-[radial-gradient(circle,_rgba(212,175,55,0.15),_transparent_65%)]
+          blur-3xl"></div>
         </div>
-      </section>
 
-      {/* CTA */}
-      <section className="relative text-center py-32 px-6 z-10">
-        <h2 className="text-3xl md:text-4xl font-serif mb-10">
-          Interested in these{" "}
-          <span className="bg-gradient-to-r from-[#6E5318] via-[#8B6B1F] to-[#5A4414] bg-clip-text text-transparent">
-            Designs?
-          </span>
+        <h2 className="relative text-3xl md:text-4xl font-serif mb-20 z-10">
+          Featured <span className="text-[#B38728]">Designs</span>
         </h2>
 
-        <a
-          href="https://wa.me/919876543210"
-          target="_blank"
-          rel="noreferrer"
-          className="inline-block px-14 py-5 rounded-full text-lg font-semibold 
-          bg-gradient-to-r from-[#6E5318] via-[#8B6B1F] to-[#5A4414] 
-          text-black tracking-wide
-          hover:scale-105 transition-all duration-300"
-        >
-          Enquire Now
-        </a>
+        <div className="relative max-w-5xl mx-auto z-10">
+
+          <div className="
+            bg-white/95 backdrop-blur-sm
+            rounded-2xl
+            shadow-[0_20px_60px_rgba(0,0,0,0.08)]
+            border border-[#F1E6C8]
+            p-6 md:p-10
+            relative
+          ">
+
+            {/* IMAGE */}
+            <div className="relative overflow-hidden rounded-xl h-[500px]">
+
+              {slides.map((slide, i) => (
+                <img
+                  key={i}
+                  src={slide.image}
+                  alt={slide.title}
+                  className={`absolute inset-0 w-full h-full object-cover
+                  transition-opacity duration-1000 ease-in-out
+                  ${i === index ? "opacity-100" : "opacity-0"}`}
+                />
+              ))}
+
+              {/* LEFT ARROW */}
+              <button
+                onClick={prevSlide}
+                className="
+                  absolute left-6 top-1/2 -translate-y-1/2
+                  w-12 h-12 rounded-full
+                  border border-[#D4AF37]
+                  text-[#B38728]
+                  flex items-center justify-center
+                  backdrop-blur-md bg-white/40
+                  hover:bg-[#D4AF37]
+                  hover:text-black
+                  transition-all duration-300
+                "
+              >
+                ‹
+              </button>
+
+              {/* RIGHT ARROW */}
+              <button
+                onClick={nextSlide}
+                className="
+                  absolute right-6 top-1/2 -translate-y-1/2
+                  w-12 h-12 rounded-full
+                  border border-[#D4AF37]
+                  text-[#B38728]
+                  flex items-center justify-center
+                  backdrop-blur-md bg-white/40
+                  hover:bg-[#D4AF37]
+                  hover:text-black
+                  transition-all duration-300
+                "
+              >
+                ›
+              </button>
+
+            </div>
+
+            {/* TEXT */}
+            <div className="mt-10 relative h-28">
+
+              {slides.map((slide, i) => (
+                <div
+                  key={i}
+                  className={`absolute w-full transition-all duration-700
+                  ${i === index
+                    ? "opacity-100 translate-y-0"
+                    : "opacity-0 translate-y-4"
+                  }`}
+                >
+                  <h3 className="text-2xl font-serif mb-3 text-[#1C1C1C]">
+                    {slide.title}
+                  </h3>
+
+                  <p className="text-gray-600 max-w-xl mx-auto">
+                    {slide.description}
+                  </p>
+                </div>
+              ))}
+
+            </div>
+
+          </div>
+
+        </div>
+
       </section>
 
-      {/* ANIMATION */}
-      <style>{`
-        @keyframes solitaireFall {
-          0% { transform: translateY(0) rotate(0deg); opacity: 1; }
-          40% { transform: translateY(-25px) rotate(-4deg); opacity: 1; }
-          100% { transform: translateY(120px) rotate(8deg); opacity: 0; }
-        }
-        .animate-solitaire {
-          animation: solitaireFall 1.2s ease forwards;
-        }
-      `}</style>
+
+
+      {/* WHY CHOOSE US — RICH BLACK */}
+      <section className="relative bg-[#050505] text-[#F2F2F2] py-36 px-6 md:px-20 overflow-hidden">
+
+        {/* GOLD SPOTLIGHT */}
+        <div className="absolute inset-0 flex justify-center pointer-events-none">
+          <div className="w-[500px] h-[500px]
+          bg-[radial-gradient(circle,_rgba(212,175,55,0.12),_transparent_70%)]
+          blur-3xl mt-10"></div>
+        </div>
+
+        <div className="relative text-center mb-20 z-10">
+          <h2 className="text-4xl md:text-5xl font-serif">
+            Why Choose{" "}
+            <span className="bg-gradient-to-r from-[#9F7928] via-[#D4AF37] to-[#B38728] bg-clip-text text-transparent">
+              Us
+            </span>
+          </h2>
+
+          <div className="w-24 h-[2px] bg-[#D4AF37] mx-auto mt-6"></div>
+        </div>
+
+        <div className="relative grid md:grid-cols-3 gap-12 max-w-6xl mx-auto z-10">
+
+          {[
+            {
+              title: "Tradition",
+              text: "Designs rooted in authentic South Indian wedding customs with refined elegance.",
+            },
+            {
+              title: "Customization",
+              text: "Personalized themes crafted according to your wedding aesthetic and cultural style.",
+            },
+            {
+              title: "Premium Finish",
+              text: "Attention to detail with luxurious presentation that enhances every ceremony.",
+            },
+          ].map((item, i) => (
+            <div
+              key={i}
+              className="bg-[#0B0B0B] border border-[#1A1A1A]
+              rounded-2xl p-10 text-center
+              hover:border-[#D4AF37]
+              transition-all duration-500
+              shadow-[0_0_40px_rgba(212,175,55,0.05)]"
+            >
+              <h3 className="text-2xl font-serif mb-6 text-[#D4AF37]">
+                {item.title}
+              </h3>
+              <p className="text-gray-400 leading-relaxed">
+                {item.text}
+              </p>
+            </div>
+          ))}
+
+        </div>
+
+      </section>
+
+
+
+      {/* CTA — PREMIUM WHITE */}
+      <section className="relative bg-[#F8F6F2] py-36 px-6 text-center overflow-hidden">
+
+        {/* GOLD GLOW */}
+        <div className="absolute inset-0 flex justify-center pointer-events-none">
+          <div className="w-[500px] h-[500px]
+          bg-[radial-gradient(circle,_rgba(212,175,55,0.12),_transparent_70%)]
+          blur-3xl"></div>
+        </div>
+
+        <div className="relative z-10 max-w-4xl mx-auto">
+
+          <h2 className="text-4xl md:text-5xl font-serif mb-6 text-[#1C1C1C]">
+            Let’s Curate Your{" "}
+            <span className="bg-gradient-to-r from-[#9F7928] via-[#D4AF37] to-[#B38728] bg-clip-text text-transparent">
+              Wedding Plates
+            </span>
+          </h2>
+
+          <div className="w-24 h-[2px] bg-[#D4AF37] mx-auto mb-10"></div>
+
+          <p className="text-gray-600 text-lg mb-12 max-w-2xl mx-auto">
+            Connect with us to design Seer Varisai plates
+            that reflect your tradition and wedding grandeur.
+          </p>
+
+          <a
+            href="https://wa.me/919876543210"
+            target="_blank"
+            rel="noreferrer"
+            className="inline-block px-16 py-5
+            bg-gradient-to-r from-[#9F7928] via-[#D4AF37] to-[#B38728]
+            text-black font-semibold rounded-full
+            shadow-[0_10px_30px_rgba(212,175,55,0.35)]
+            hover:shadow-[0_15px_40px_rgba(212,175,55,0.5)]
+            hover:scale-[1.03]
+            transition-all duration-300"
+          >
+            Enquire Now
+          </a>
+
+        </div>
+
+      </section>
 
     </div>
   );
