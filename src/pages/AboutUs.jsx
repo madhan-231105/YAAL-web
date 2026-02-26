@@ -1,7 +1,7 @@
 import React from "react";
 import { Gem, Crown, Heart, Sparkles } from "lucide-react";
 
-const ContactUs = () => {
+const AboutUs = () => {
   return (
     <div className="bg-white">
 
@@ -144,4 +144,4 @@ const ContactUs = () => {
   );
 };
 
-export default C;
+export default AboutUs;

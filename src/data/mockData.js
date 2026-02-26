@@ -37,7 +37,7 @@ export const jewelleryItems = [
     code: "TBS105",
     price: 6000,
     category: "Bridal",
-    image: "https://images.unsplash.com/photo-1602810316693-3667c854239a?auto=format&fit=crop&q=80&w=600",
+    image: "https://photos.app.goo.gl/jPjK8cJMYxUkbMuB9",
   },
   {
     id: 6,
