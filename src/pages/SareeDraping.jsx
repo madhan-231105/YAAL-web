@@ -1,37 +1,105 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from "react";
 
 const SareeDraping = () => {
-  // Using placeholders for gallery
+  const [activeIndex, setActiveIndex] = useState(2);
+  const [isPaused, setIsPaused] = useState(false);
+  const [zoomedIndex, setZoomedIndex] = useState(null);
+
   const images = [
-    "https://images.unsplash.com/photo-1610189012906-47833cc1574e?w=800",
-    "https://images.unsplash.com/photo-1595981267035-7b04ca84a82d?w=800",
-    "https://images.unsplash.com/photo-1583391726438-b71578e71852?w=800",
+    {
+      src: "https://thumbs.dreamstime.com/b/indian-silk-saree-14348643.jpg?w=768",
+      alt: "Indian silk saree",
+    },
+    {
+      src: "https://thumbs.dreamstime.com/b/indian-saree-design-19704685.jpg?w=768",
+      alt: "Traditional wedding saree",
+    },
+    {
+      src: "https://thumbs.dreamstime.com/b/traditional-kubera-silk-cotton-saree-salem-tamil-nadu-elegant-handloom-design-close-up-image-beautifully-woven-made-414160694.jpg?w=1400",
+      alt: "Elegant saree fashion portrait",
+    },
+    {
+      src: "https://image2url.com/r2/default/images/1772067210920-7f84e61f-6468-422d-af90-44647b7ebbf8.png",
+      alt: "South Indian bridal saree draping",
+    },
+    {
+      src: "https://image2url.com/r2/default/images/1772067261509-47860568-6751-47ee-bf8e-1793ca42bfac.png",
+      alt: "Traditional wedding saree draping",
+    },
   ];
 
+  /* ---------------- AUTO ROTATE ---------------- */
+  useEffect(() => {
+    if (isPaused) return;
+
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % images.length);
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, [isPaused, images.length]);
+
+  /* ---------------- HANDLE CLICK ---------------- */
+  const handleImageClick = (index) => {
+    setIsPaused(true);          // stop background animation
+    setActiveIndex(index);      // bring to center
+    setZoomedIndex(index);      // trigger zoom
+
+    setTimeout(() => {
+      setZoomedIndex(null);     // remove zoom
+      setIsPaused(false);       // resume auto rotation
+    }, 1000); // 1 second zoom
+  };
+
   return (
-    <div className="pt-10 pb-20 max-w-7xl mx-auto px-4">
-      <div className="text-center mb-12">
-        <h1 className="text-4xl font-serif font-bold text-gray-900">Saree Draping Services</h1>
-        <p className="text-gray-500 mt-2">Professional draping for that perfect look</p>
-      </div>
+    <div className="pt-20 pb-20 max-w-7xl mx-auto px-4 overflow-hidden">
+      <div className="relative h-[450px] flex items-center justify-center overflow-hidden">
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        {images.map((src, idx) => (
-          <div key={idx} className="rounded-lg overflow-hidden shadow-lg h-96">
-            <img src={src} alt="Saree Draping" className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"/>
-          </div>
-        ))}
-      </div>
+        {images.map((image, index) => {
+          const total = images.length;
+          let diff = index - activeIndex;
 
-      <div className="mt-12 text-center">
-        <a 
-          href="https://wa.me/919876543210?text=Hi%2C%20I%20am%20interested%20in%20Saree%20Draping%20services."
-          target="_blank"
-          rel="noreferrer"
-          className="inline-block bg-gold text-white px-8 py-3 rounded-md hover:bg-gold-dark transition-colors text-lg"
-        >
-          Book Appointment
-        </a>
+          if (diff > total / 2) diff -= total;
+          if (diff < -total / 2) diff += total;
+
+          const base =
+            "absolute rounded-2xl shadow-2xl object-cover cursor-pointer transition-all duration-700 ease-in-out";
+
+          let positionStyle = "";
+
+          if (diff === 0)
+            positionStyle =
+              "z-50 scale-100 opacity-100 w-[400px] h-[450px]";
+          else if (diff === -1)
+            positionStyle =
+              "z-40 scale-90 opacity-80 -translate-x-72 w-[330px] h-[400px]";
+          else if (diff === -2)
+            positionStyle =
+              "z-30 scale-75 opacity-60 -translate-x-[520px] w-[280px] h-[360px]";
+          else if (diff === 1)
+            positionStyle =
+              "z-40 scale-90 opacity-80 translate-x-72 w-[330px] h-[400px]";
+          else if (diff === 2)
+            positionStyle =
+              "z-30 scale-75 opacity-60 translate-x-[520px] w-[280px] h-[360px]";
+          else positionStyle = "opacity-0 scale-50";
+
+          /* -------- ZOOM EFFECT -------- */
+          const zoomEffect =
+            zoomedIndex === index
+              ? "scale-125 z-[100] duration-500"
+              : "";
+
+          return (
+            <img
+              key={index}
+              src={image.src}
+              alt={image.alt}
+              onClick={() => handleImageClick(index)}
+              className={`${base} ${positionStyle} ${zoomEffect}`}
+            />
+          );
+        })}
       </div>
     </div>
   );
