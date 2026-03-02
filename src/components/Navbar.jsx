@@ -22,8 +22,8 @@ const Navbar = () => {
     { name: "Jewellery Rental", path: "/jewellery" },
     { name: "Saree Draping", path: "/saree-draping" },
     { name: "Plate Decoration", path: "/plate-decoration" },
-    { name: "About Us", path: "/about" },
-    { name: "Contact Us", path: "/contact-us" },
+    { name: "About Us", path: "/AboutUs" },
+    { name: "Contact Us", path: "/ContactUs" },
   ];
 
   return (
@@ -124,7 +124,7 @@ const Navbar = () => {
 
           {/* ✅ Mobile CTA Fixed */}
           <Link
-            to="/contact-us"
+            to="/ContactUs"
             onClick={() => setIsOpen(false)}
             className="block text-center mt-4 px-5 py-3 rounded-full bg-gold text-white font-semibold shadow-md"
           >
