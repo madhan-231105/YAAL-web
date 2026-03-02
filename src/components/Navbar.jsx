@@ -23,7 +23,7 @@ const Navbar = () => {
     { name: "Saree Draping", path: "/saree-draping" },
     { name: "Plate Decoration", path: "/plate-decoration" },
     { name: "About Us", path: "/about" },
-    { name: "Contact Us", path: "/contact" },
+    { name: "Contact Us", path: "/contact-us" },
   ];
 
   return (
@@ -74,9 +74,9 @@ const Navbar = () => {
               </NavLink>
             ))}
 
-            {/* CTA Button */}
+            {/* ✅ CTA Button Fixed */}
             <Link
-              to="/contact"
+              to="/contact-us"
               className="ml-4 px-5 py-2 rounded-full bg-gold text-white font-semibold shadow-md hover:scale-105 hover:shadow-lg transition-all duration-300"
             >
               Book Now
@@ -122,8 +122,9 @@ const Navbar = () => {
             </NavLink>
           ))}
 
+          {/* ✅ Mobile CTA Fixed */}
           <Link
-            to="/contact"
+            to="/contact-us"
             onClick={() => setIsOpen(false)}
             className="block text-center mt-4 px-5 py-3 rounded-full bg-gold text-white font-semibold shadow-md"
           >

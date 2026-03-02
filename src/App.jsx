@@ -10,7 +10,7 @@ import JewelleryRental from "./pages/JewelleryRental";
 import SareeDraping from "./pages/SareeDraping";
 import PlateDecoration from "./pages/PlateDecoration";
 import AboutUs from "./pages/AboutUs";
-
+import ContactUs from "./pages/ContactUs"; // ✅ Make sure file name matches exactly
 
 /* 🔥 Scroll To Top On Route Change */
 function ScrollToTop() {
@@ -41,6 +41,7 @@ function App() {
             <Route path="/saree-draping" element={<SareeDraping />} />
             <Route path="/plate-decoration" element={<PlateDecoration />} />
             <Route path="/about" element={<AboutUs />} />
+            <Route path="/contact-us" element={<ContactUs />} /> {/* ✅ Fixed */}
           </Routes>
         </main>
 
