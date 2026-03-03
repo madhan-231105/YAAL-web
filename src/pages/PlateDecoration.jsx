@@ -110,6 +110,7 @@ export default function PlateDecoration() {
   const [indexes, setIndexes] = useState([0, 0, 0, 0]);
   const [paused, setPaused] = useState([false, false, false, false]);
   const [active, setActive] = useState(null);
+  const [fadeIn, setFadeIn] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -134,9 +135,17 @@ export default function PlateDecoration() {
     window.addEventListener("keydown", handleEsc);
     return () => window.removeEventListener("keydown", handleEsc);
   }, []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    setFadeIn(true);
+  }, []);
 
   return (
-    <div className="font-sans">
+    <div
+      className={`font-sans transition-opacity duration-700 ease-in-out ${
+      fadeIn ? "opacity-100" : "opacity-0"
+    }`}
+    >
 
       {/* INTRO */}
       <section className="bg-[#050505] text-[#F2F2F2] py-28 text-center px-6">
