@@ -110,8 +110,8 @@ export default function PlateDecoration() {
   const [indexes, setIndexes] = useState([0, 0, 0, 0]);
   const [paused, setPaused] = useState([false, false, false, false]);
   const [active, setActive] = useState(null);
+  const [fadeIn, setFadeIn] = useState(false);
 
-  // Auto rotate (pauses when hovered)
   useEffect(() => {
     const interval = setInterval(() => {
       setIndexes((prev) =>
@@ -135,9 +135,17 @@ export default function PlateDecoration() {
     window.addEventListener("keydown", handleEsc);
     return () => window.removeEventListener("keydown", handleEsc);
   }, []);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    setFadeIn(true);
+  }, []);
 
   return (
-    <div className="font-sans">
+    <div
+      className={`font-sans transition-opacity duration-700 ease-in-out ${
+      fadeIn ? "opacity-100" : "opacity-0"
+    }`}
+    >
 
       {/* INTRO */}
       <section className="bg-[#050505] text-[#F2F2F2] py-28 text-center px-6">
@@ -154,8 +162,6 @@ export default function PlateDecoration() {
 
       {/* IMAGE GRID */}
       <section className="bg-[#F8F6F2] px-6 md:px-20 py-20 relative">
-
-        {/* GALLERY HEADING (unchanged) */}
         <div className="text-center mb-16">
           <p className="text-sm tracking-[0.3em] text-[#9F7928] mb-4">
             OUR SIGNATURE COLLECTION
@@ -172,7 +178,6 @@ export default function PlateDecoration() {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
-
           {designs.map((group, i) => {
             const current = group[indexes[i]];
 
@@ -190,19 +195,14 @@ export default function PlateDecoration() {
                   )
                 }
                 onClick={() => setActive(current)}
-                className="relative group cursor-pointer
-                rounded-2xl overflow-hidden
-                bg-[#0B0B0B]
-                border border-[#1A1A1A]
+                className="relative group cursor-pointer rounded-2xl overflow-hidden
+                bg-[#0B0B0B] border border-[#1A1A1A]
                 hover:border-[#D4AF37]
                 transition-all duration-500
                 hover:shadow-[0_0_80px_rgba(212,175,55,0.25)]
                 hover:-translate-y-2"
               >
-
-                {/* Vertical Fall Animation */}
                 <div className="relative h-72 overflow-hidden">
-
                   {group.map((item, idx) => (
                     <img
                       key={idx}
@@ -230,87 +230,96 @@ export default function PlateDecoration() {
                     {current.description}
                   </p>
                 </div>
-
               </div>
             );
           })}
         </div>
       </section>
+{/* ENQUIRE SECTION */}
+<section className="bg-[#050505] text-[#F2F2F2] py-28 px-6">
+  <div className="max-w-6xl mx-auto text-center">
 
-      {/* ENQUIRE SECTION */}
-      <section className="bg-[#050505] text-[#F2F2F2] py-28 px-6">
-        <div className="max-w-6xl mx-auto text-center">
+    <h2 className="text-3xl md:text-4xl font-serif mb-6">
+      Let’s Curate Your{" "}
+      <span className="bg-gradient-to-r from-[#9F7928] via-[#D4AF37] to-[#B38728] bg-clip-text text-transparent">
+        Wedding Plates
+      </span>
+    </h2>
 
-          <h2 className="text-3xl md:text-4xl font-serif mb-6">
-            Let’s Curate Your{" "}
-            <span className="bg-gradient-to-r from-[#9F7928] via-[#D4AF37] to-[#B38728] bg-clip-text text-transparent">
-              Wedding Plates
-            </span>
-          </h2>
+    <p className="text-gray-400 max-w-2xl mx-auto mb-16">
+      Bespoke seer varisai arrangements crafted with elegance and tradition.
+    </p>
 
-          <p className="text-gray-400 max-w-2xl mx-auto mb-16">
-            Bespoke seer varisai arrangements crafted with elegance and tradition.
-          </p>
-
-          <div className="grid md:grid-cols-3 gap-10 mb-16">
-            {[
-              { icon: "✨", title: "Custom Theme Styling", text: "Designed exclusively around your ceremony concept." },
-              { icon: "💎", title: "Premium Materials", text: "High-quality curated decorative elements." },
-              { icon: "⏳", title: "Timely Execution", text: "Flawless setup delivered exactly as promised." }
-            ].map((item, index) => (
-              <div
-                key={index}
-                className="bg-[#0B0B0B] border border-[#1A1A1A]
-                rounded-2xl p-10 text-center
-                transition-all duration-500
-                hover:border-[#D4AF37]
-                hover:-translate-y-2
-                hover:shadow-[0_0_80px_rgba(212,175,55,0.35)]"
-              >
-                <div className="w-14 h-14 mx-auto mb-6 rounded-full
-                bg-[#D4AF37]/10 flex items-center justify-center
-                text-[#D4AF37] text-2xl">
-                  {item.icon}
-                </div>
-
-                <h3 className="font-serif text-lg text-[#D4AF37] mb-3">
-                  {item.title}
-                </h3>
-
-                <p className="text-gray-400 text-sm">
-                  {item.text}
-                </p>
-              </div>
-            ))}
+    <div className="grid md:grid-cols-3 gap-10 mb-16">
+      {[
+        { icon: "✨", title: "Custom Theme Styling", text: "Designed exclusively around your ceremony concept." },
+        { icon: "💎", title: "Premium Materials", text: "High-quality curated decorative elements." },
+        { icon: "⏳", title: "Timely Execution", text: "Flawless setup delivered exactly as promised." }
+      ].map((item, index) => (
+        <div
+          key={index}
+          className="bg-[#0B0B0B] border border-[#1A1A1A]
+          rounded-2xl p-10 text-center
+          transition-all duration-500
+          hover:border-[#D4AF37]
+          hover:-translate-y-2
+          hover:shadow-[0_0_80px_rgba(212,175,55,0.35)]"
+        >
+          <div className="w-14 h-14 mx-auto mb-6 rounded-full
+          bg-[#D4AF37]/10 flex items-center justify-center
+          text-[#D4AF37] text-2xl">
+            {item.icon}
           </div>
 
-          <a
-            href="https://wa.me/919876543210"
-            target="_blank"
-            rel="noreferrer"
-            className="inline-block px-14 py-5
-            bg-gradient-to-r from-[#9F7928] via-[#D4AF37] to-[#B38728]
-            text-black font-semibold rounded-full
-            hover:scale-105 transition duration-300 shadow-md"
-          >
-            Enquire Now
-          </a>
-        </div>
-      </section>
+          <h3 className="font-serif text-lg text-[#D4AF37] mb-3">
+            {item.title}
+          </h3>
 
+          <p className="text-gray-400 text-sm">
+            {item.text}
+          </p>
+        </div>
+      ))}
+    </div>
+
+    <a
+      href="https://wa.me/919876543210"
+      target="_blank"
+      rel="noreferrer"
+      className="inline-block px-14 py-5
+      bg-gradient-to-r from-[#9F7928] via-[#D4AF37] to-[#B38728]
+      text-black font-semibold rounded-full
+      hover:scale-105 transition duration-300 shadow-md"
+    >
+      Enquire Now
+    </a>
+  </div>
+</section>
       {/* MODAL */}
       {active && (
         <div
           onClick={() => setActive(null)}
-          className="fixed inset-0 bg-black/80 backdrop-blur-md
-          flex items-center justify-center z-50"
+          className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center z-50"
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className="bg-[#111] rounded-2xl
-            max-w-6xl w-full mx-6
-            grid md:grid-cols-2 overflow-hidden shadow-2xl"
+            className="relative bg-[#111] rounded-2xl max-w-6xl w-full mx-6 grid md:grid-cols-2 overflow-hidden shadow-2xl"
           >
+
+            {/* CLOSE BUTTON */}
+            <button
+              onClick={() => setActive(null)}
+              className="absolute top-4 left-4 z-50
+              w-10 h-10 rounded-full
+              bg-black/70 border border-[#D4AF37]
+              text-[#D4AF37] flex items-center justify-center
+              text-xl font-semibold
+              hover:bg-[#D4AF37] hover:text-black
+              transition-all duration-300"
+            >
+              ×
+            </button>
+
             <img
               src={active.image}
               alt={active.title}
@@ -342,8 +351,8 @@ export default function PlateDecoration() {
               </ul>
 
               <button
-                className="px-10 py-4
-                bg-gradient-to-r from-[#9F7928] via-[#D4AF37] to-[#B38728]
+                className="px-10 py-4 bg-gradient-to-r
+                from-[#9F7928] via-[#D4AF37] to-[#B38728]
                 text-black font-semibold rounded-full
                 hover:scale-105 transition duration-300
                 shadow-[0_10px_40px_rgba(212,175,55,0.4)]"
