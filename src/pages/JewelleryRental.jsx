@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ChevronLeft, ChevronRight, ShoppingBag } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, ShoppingBag, MessageCircle, Info } from "lucide-react";
 import { jewelleryItems } from "../data/mockData";
 
 const JewelleryRental = () => {
@@ -15,19 +15,14 @@ const JewelleryRental = () => {
   /* -------------------- Mobile Back Button Logic -------------------- */
   useEffect(() => {
     if (selectedItem) {
-      // Push a new state to history when modal opens
       window.history.pushState({ modalOpen: true }, "");
-      
-      // Disable background scrolling
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "unset";
     }
 
     const handlePopState = () => {
-      if (selectedItem) {
-        setSelectedItem(null);
-      }
+      if (selectedItem) setSelectedItem(null);
     };
 
     window.addEventListener("popstate", handlePopState);
@@ -62,8 +57,9 @@ const JewelleryRental = () => {
 
   /* -------------------- Image Slider Logic -------------------- */
   const getImages = (item) => {
-    // Falls back to item.image if item.images array doesn't exist
-    return item?.images || [item?.image];
+    if (!item) return [];
+    if (item.images && Array.isArray(item.images)) return item.images;
+    return [item.image];
   };
 
   const nextImage = (e) => {
@@ -78,9 +74,15 @@ const JewelleryRental = () => {
     setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
   };
 
-  /* -------------------- WhatsApp Booking -------------------- */
-  const handleBook = (item) => {
-    const message = `Hi, I want to book the jewellery.\n\nJewel Code : ${item.code}\nJewel Name : ${item.name}\nPrice : ${item.price} / Day\n\nEvent Date :\nName :\nAddress :`;
+  /* -------------------- WhatsApp Actions -------------------- */
+  const handleAction = (item, type) => {
+    let message = "";
+    if (type === "book") {
+      message = `Hi, I want to BOOK this jewellery.\n\nJewel Code: ${item.code}\nJewel Name: ${item.name}\nPrice: ₹${item.price}/Day\n\nEvent Date:\nName:\nAddress:`;
+    } else {
+      message = `Hi, I have an ENQUIRY regarding this jewellery.\n\nJewel Code: ${item.code}\nJewel Name: ${item.name}\n\nMy Question: `;
+    }
+
     const encodedMessage = encodeURIComponent(message);
     window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, "_blank");
   };
@@ -104,7 +106,7 @@ const JewelleryRental = () => {
             transition={{ delay: 0.2 }}
             className="text-gray-500 text-base md:text-lg"
           >
-            Choose from our premium range of bridal jewellery
+            Premium bridal jewellery for your special day
           </motion.p>
         </div>
 
@@ -165,17 +167,16 @@ const JewelleryRental = () => {
                       alt={item.name}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     />
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
                   </div>
                   <div className="p-5">
                     <span className="text-xs font-medium text-gold uppercase tracking-widest">{item.category}</span>
                     <h3 className="font-serif text-lg font-bold text-gray-800 mt-1">{item.name}</h3>
                     <p className="text-gray-900 font-semibold mt-2">₹{parsePrice(item.price).toLocaleString()} <span className="text-xs text-gray-400 font-normal">/ Day</span></p>
                     <button
-                      onClick={() => handleBook(item)}
+                      onClick={() => setSelectedItem(item)}
                       className="w-full mt-4 bg-gray-900 text-white py-3 rounded-xl font-medium hover:bg-gold transition-colors flex items-center justify-center gap-2"
                     >
-                      <ShoppingBag size={18} /> Book Now
+                      View Details
                     </button>
                   </div>
                 </motion.div>
@@ -192,93 +193,119 @@ const JewelleryRental = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/80 backdrop-blur-md flex items-center justify-center z-[100] p-4 md:p-8"
+            className="fixed inset-0 bg-black/90 backdrop-blur-md flex items-center justify-center z-[100] p-2 md:p-8"
             onClick={() => setSelectedItem(null)}
           >
             <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              initial={{ opacity: 0, scale: 0.95, y: 30 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="bg-white max-w-6xl w-full max-h-[90vh] rounded-[2rem] shadow-2xl overflow-hidden flex flex-col md:flex-row relative"
+              exit={{ opacity: 0, scale: 0.95, y: 30 }}
+              className="bg-white max-w-7xl w-full max-h-[95vh] rounded-[2.5rem] shadow-2xl overflow-hidden flex flex-col md:flex-row relative"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Close Button */}
               <button 
                 onClick={() => setSelectedItem(null)}
-                className="absolute top-4 right-4 z-10 p-2 bg-white/80 hover:bg-white rounded-full shadow-lg transition-colors"
+                className="absolute top-6 right-6 z-[110] p-3 bg-white/90 hover:bg-white rounded-full shadow-2xl transition-all active:scale-90"
               >
-                <X size={24} className="text-gray-800" />
+                <X size={24} className="text-gray-900" />
               </button>
 
-              {/* Image Slider Section */}
-              <div className="w-full md:w-3/5 relative bg-gray-100 flex items-center justify-center group h-[40vh] md:h-auto">
-                <img
-                  key={currentImageIndex}
-                  src={getImages(selectedItem)[currentImageIndex]}
-                  alt={selectedItem.name}
-                  className="w-full h-full object-contain md:object-cover"
-                />
-                
+              {/* IMAGE SLIDER SECTION */}
+              <div className="w-full md:w-2/3 relative bg-gray-50 flex flex-col h-[45vh] md:h-auto border-r border-gray-100">
+                <div className="flex-1 relative overflow-hidden flex items-center justify-center">
+                  <AnimatePresence mode="wait">
+                    <motion.img
+                      key={currentImageIndex}
+                      src={getImages(selectedItem)[currentImageIndex]}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 1.1 }}
+                      transition={{ duration: 0.4 }}
+                      className="w-full h-full object-contain p-4"
+                    />
+                  </AnimatePresence>
+
+                  {getImages(selectedItem).length > 1 && (
+                    <>
+                      <button onClick={prevImage} className="absolute left-4 p-3 rounded-full bg-white shadow-xl hover:bg-gold hover:text-white transition-all z-10"><ChevronLeft size={24} /></button>
+                      <button onClick={nextImage} className="absolute right-4 p-3 rounded-full bg-white shadow-xl hover:bg-gold hover:text-white transition-all z-10"><ChevronRight size={24} /></button>
+                    </>
+                  )}
+                </div>
+
                 {getImages(selectedItem).length > 1 && (
-                  <>
-                    <button 
-                      onClick={prevImage}
-                      className="absolute left-4 p-2 rounded-full bg-white/20 hover:bg-white/90 backdrop-blur-md transition-all opacity-0 group-hover:opacity-100"
-                    >
-                      <ChevronLeft size={24} />
-                    </button>
-                    <button 
-                      onClick={nextImage}
-                      className="absolute right-4 p-2 rounded-full bg-white/20 hover:bg-white/90 backdrop-blur-md transition-all opacity-0 group-hover:opacity-100"
-                    >
-                      <ChevronRight size={24} />
-                    </button>
-                    {/* Dots indicator */}
-                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-                      {getImages(selectedItem).map((_, idx) => (
-                        <div 
-                          key={idx} 
-                          className={`h-1.5 rounded-full transition-all ${idx === currentImageIndex ? 'w-6 bg-white' : 'w-2 bg-white/50'}`} 
-                        />
-                      ))}
-                    </div>
-                  </>
+                  <div className="p-4 flex justify-center gap-3 bg-white/50 backdrop-blur-sm">
+                    {getImages(selectedItem).map((img, idx) => (
+                      <button key={idx} onClick={() => setCurrentImageIndex(idx)} className={`w-16 h-16 rounded-xl overflow-hidden border-2 transition-all ${idx === currentImageIndex ? "border-gold scale-110 shadow-lg" : "border-transparent opacity-60"}`}>
+                        <img src={img} className="w-full h-full object-cover" alt="thumb" />
+                      </button>
+                    ))}
+                  </div>
                 )}
               </div>
 
-              {/* Content Section */}
-              <div className="w-full md:w-2/5 p-8 md:p-12 flex flex-col justify-center overflow-y-auto">
-                <div className="mb-auto">
-                  <span className="text-gold font-bold tracking-[0.2em] text-sm uppercase">{selectedItem.code}</span>
-                  <h2 className="font-serif text-3xl md:text-4xl font-bold mt-2 mb-4 text-gray-900">
-                    {selectedItem.name}
-                  </h2>
-                  <div className="flex items-baseline gap-2 mb-6">
-                    <span className="text-3xl font-bold text-gray-900">₹{parsePrice(selectedItem.price).toLocaleString()}</span>
-                    <span className="text-gray-500">/ per day</span>
+              {/* CONTENT SECTION */}
+              <div className="w-full md:w-1/3 p-8 md:p-12 flex flex-col overflow-y-auto">
+                <div className="flex-1">
+                  <div className="mb-6">
+                    <span className="px-4 py-1.5 bg-gray-100 text-gray-800 rounded-full text-[10px] font-bold uppercase tracking-[0.2em]">
+                      Code: {selectedItem.code}
+                    </span>
                   </div>
                   
-                  <div className="space-y-4 py-6 border-y border-gray-100 mb-8">
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-500">Category</span>
-                      <span className="font-medium">{selectedItem.category}</span>
+                  <h2 className="font-serif text-3xl md:text-5xl font-bold text-gray-900 mb-4 leading-tight">
+                    {selectedItem.name}
+                  </h2>
+
+                  <div className="flex items-baseline gap-2 mb-8 border-b border-gray-100 pb-8">
+                    <span className="text-4xl font-bold text-gray-900">
+                      ₹{parsePrice(selectedItem.price).toLocaleString()}
+                    </span>
+                    <span className="text-gray-500 font-medium italic">/ day rental</span>
+                  </div>
+
+                  <div className="space-y-8">
+                    <div>
+                      <h4 className="flex items-center gap-2 text-xs font-bold text-gray-400 uppercase tracking-widest mb-3">
+                        <Info size={14} /> Description
+                      </h4>
+                      <p className="text-gray-600 leading-relaxed text-lg">
+                        {selectedItem.description || "Handcrafted premium jewellery piece designed for your most special occasions."}
+                      </p>
                     </div>
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-500">Availability</span>
-                      <span className="text-green-600 font-medium">Ready to Rent</span>
+
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="bg-gray-50 p-5 rounded-3xl">
+                        <span className="block text-[10px] text-gray-400 uppercase font-bold mb-1 tracking-wider">Style</span>
+                        <span className="font-bold text-gray-900">{selectedItem.category}</span>
+                      </div>
+                      <div className="bg-gray-50 p-5 rounded-3xl">
+                        <span className="block text-[10px] text-gray-400 uppercase font-bold mb-1 tracking-wider">Rental Type</span>
+                        <span className="font-bold text-gray-900">24 Hours</span>
+                      </div>
                     </div>
-                    <p className="text-gray-600 leading-relaxed pt-2">
-                      Handcrafted premium {selectedItem.category.toLowerCase()} set. Perfect for weddings and grand celebrations. Includes cleaning and insurance covers.
-                    </p>
                   </div>
                 </div>
 
-                <button
-                  onClick={() => handleBook(selectedItem)}
-                  className="w-full bg-gold text-white py-5 rounded-2xl font-bold uppercase tracking-widest hover:bg-black transition-all transform active:scale-95 shadow-xl shadow-gold/20"
-                >
-                  Book via WhatsApp
-                </button>
+                {/* TWO BUTTONS: BOOK AND ENQUIRY */}
+                <div className="mt-12 flex flex-col gap-3">
+                  <button
+                    onClick={() => handleAction(selectedItem, "book")}
+                    className="w-full bg-gold text-white py-5 rounded-2xl font-bold uppercase tracking-widest hover:bg-black transition-all transform active:scale-95 flex items-center justify-center gap-3 shadow-xl shadow-gold/20"
+                  >
+                    <ShoppingBag size={20} />
+                    Book Now
+                  </button>
+                  
+                  <button
+                    onClick={() => handleAction(selectedItem, "enquiry")}
+                    className="w-full bg-gray-900 text-white py-5 rounded-2xl font-bold uppercase tracking-widest hover:bg-gold transition-all transform active:scale-95 flex items-center justify-center gap-3"
+                  >
+                    <MessageCircle size={20} />
+                    Send Enquiry
+                  </button>
+                </div>
               </div>
             </motion.div>
           </motion.div>
