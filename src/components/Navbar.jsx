@@ -16,7 +16,7 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
+  
   const navLinks = [
     { name: "Home", path: "/" },
     { name: "Jewellery Rental", path: "/jewellery" },
