@@ -256,8 +256,24 @@ const SareeDraping = () => {
             </div>
         </div>
 
+        {/* BOOK NOW CTA BEFORE COLLECTION */}
+<div className="text-center mt-16 mb-6">
+  <a
+    href="https://wa.me/919080533611"
+    target="_blank"
+    rel="noreferrer"
+    className="inline-block px-12 py-4 rounded-full 
+    bg-gradient-to-r from-[#9F7928] via-[#D4AF37] to-[#B38728] 
+    text-black font-bold text-sm tracking-widest uppercase 
+    hover:scale-105 transition-transform 
+    shadow-[0_0_30px_rgba(212,175,55,0.3)]"
+  >
+    Book Now
+  </a>
+</div>
+
         {/* --- THE COLLECTION (With Smooth Transition) --- */}
-        <div className="relative z-0 my-20 md:my-32 max-w-7xl mx-auto px-4">
+        <div className="relative z-0 mt-0 mb-8 max-w-7xl mx-auto px-4">
           <div className="text-center mb-10">
             <span className="text-[#D4AF37] text-xs font-bold tracking-[0.3em] uppercase">Archive 2024</span>
             <h2 className="text-4xl md:text-5xl font-serif font-bold text-[#1a1a1a] mt-3">The Collection</h2>
@@ -283,11 +299,14 @@ const SareeDraping = () => {
           </nav>
           
           {/* Grid with Key-Based Animation for Smooth Transitions */}
-          <div key={activeCategory} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-10 animate-fadeSlideIn">
-            {SAREE_ARCHIVE[activeCategory].slice(0, visibleItems).map((saree) => (
+            <div
+              key={activeCategory}
+              className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-10 animate-fadeSlideIn"
+            >
+              {SAREE_ARCHIVE[activeCategory].slice(0, visibleItems).map((saree) => (
                 <div key={saree.id} className="group bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100 hover:-translate-y-2 cursor-pointer"
                      onClick={() => setSelectedSaree(saree)}>
-                  <div className="h-80 overflow-hidden relative">
+                  <div className="h-52 md:h-80 overflow-hidden relative">
                     <img 
                       src={saree.src} 
                       alt={saree.name} 
@@ -309,7 +328,7 @@ const SareeDraping = () => {
 
           {/* Load More Button */}
           {visibleItems < SAREE_ARCHIVE[activeCategory].length && (
-            <div className="text-center mt-16">
+            <div className="text-center mt-4">
               <button 
                 onClick={() => setVisibleItems(prev => prev + 4)}
                 className="px-12 py-4 border border-gray-300 text-gray-600 text-xs font-bold tracking-widest uppercase hover:bg-[#1a1a1a] hover:text-white hover:border-[#1a1a1a] transition-all duration-300 rounded-full"
@@ -321,21 +340,21 @@ const SareeDraping = () => {
         </div>
 
         {/* --- PROCESS SECTION (Integrated with CTA) --- */}
-        <div className="bg-[#050505] text-[#F2F2F2] pt-28 pb-20 px-6 overflow-hidden relative">
+        <div className="bg-[#050505] text-[#F2F2F2] pt-4 pb-4 md:pb-14 px-6 overflow-hidden relative">
             
             {/* Dark background pattern */}
             <div className="absolute inset-0 opacity-5" 
                  style={{backgroundImage: 'radial-gradient(#333 1px, transparent 1px)', backgroundSize: '20px 20px'}}></div>
 
             <div className="max-w-7xl mx-auto relative z-10">
-                <div className="text-center mb-24">
+               <div className="text-center mb-10 md:mb-12">
                     <h2 className="text-4xl md:text-5xl font-serif mb-4">
                     The <span className="text-[#D4AF37] italic">Process</span>
                     </h2>
                     <p className="text-gray-500 text-sm tracking-wide">From concept to celebration in three simple steps.</p>
                 </div>
 
-                <div className="relative mb-24">
+                <div className="relative mb-4">
                     {/* Horizontal Line connecting nodes */}
                     <div className="hidden md:block absolute top-[27px] left-0 w-full h-[1px] bg-[#222] z-0"></div>
 
