@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Instagram, Youtube, Sparkles } from "lucide-react";
+import { Instagram, Youtube, Mail, Phone, MapPin, Send } from "lucide-react";
+import { motion } from "framer-motion";
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
@@ -8,185 +9,163 @@ const ContactUs = () => {
     message: "",
   });
 
+  const goldText = "text-[#C5A02E]";
+  const goldBg = "bg-[#C5A02E]";
+  const goldBorder = "border-[#C5A02E]/30";
+
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert("Thank you! We will contact you soon.");
+    alert("Thank you! Your inquiry has been sent to YAAL Jewellery.");
+    setFormData({ name: "", phone: "", message: "" });
+  };
 
-    setFormData({
-      name: "",
-      phone: "",
-      message: "",
-    });
+  const fadeUp = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
   };
 
   return (
-    <div className="relative min-h-screen pt-10 pb-16 bg-gradient-to-br from-[#faf7f2] via-white to-[#f8f3ec] overflow-hidden">
-
-      {/* ================= GOLD PARTICLE BACKGROUND ================= */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="particle"></div>
-        <div className="particle delay1"></div>
-        <div className="particle delay2"></div>
-        <div className="particle delay3"></div>
-        <div className="particle delay4"></div>
-      </div>
-
-      {/* Soft Glow Background */}
-      <div className="absolute top-20 left-10 w-40 h-40 bg-gold/10 rounded-full blur-3xl animate-pulse"></div>
-      <div className="absolute bottom-20 right-10 w-56 h-56 bg-pink-200/20 rounded-full blur-3xl animate-pulse"></div>
-
-      <div className="relative max-w-6xl mx-auto px-6">
-
-        {/* Heading */}
-        <div className="text-center mb-10 animate-fadeIn">
-          <h1 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 mb-2 tracking-wide">
-            Contact Us
+    <div className="bg-[#FCFBFA] min-h-screen pb-24 overflow-hidden">
+      {/* ================= HERO SECTION ================= */}
+      <section className="relative pt-32 pb-16 px-6 text-center">
+         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:32px_32px] opacity-40 -z-10" />
+        
+        <motion.div initial="hidden" animate="visible" variants={fadeUp}>
+          <span className={`inline-block uppercase tracking-[0.3em] text-xs font-bold mb-4 ${goldText}`}>
+            Get In Touch
+          </span>
+          <h1 className="text-4xl md:text-6xl font-serif font-light leading-tight mb-6">
+            Let’s Create Your <br /> <span className="italic">Bridal Legacy</span>
           </h1>
-          <p className="text-gray-500">
-            We would love to be part of your special moments ✨
-          </p>
-        </div>
+          <div className={`w-16 h-[1px] ${goldBg} mx-auto mb-8`} />
+        </motion.div>
+      </section>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+          
+          {/* ================= LEFT: CONTACT INFO ================= */}
+          <motion.div 
+            initial="hidden" 
+            whileInView="visible" 
+            viewport={{ once: true }}
+            variants={fadeUp}
+            className="lg:col-span-5 space-y-12"
+          >
+            <div>
+              <h2 className="text-2xl font-serif mb-6 italic">Connect With Us</h2>
+              <p className="text-gray-500 font-light leading-relaxed mb-8">
+                Whether you're looking for the perfect temple jewellery set or 
+                professional saree draping, our stylists are here to assist you.
+              </p>
+              
+              <div className="space-y-6">
+                {[
+                  { icon: <Phone size={20} />, label: "Call / WhatsApp", value: "+91 98765 43210" },
+                  { icon: <Mail size={20} />, label: "Email", value: "hello@yaaljewellery.com" },
+                  { icon: <MapPin size={20} />, label: "Boutique", value: "123 Elegance Street, Chennai, TN" }
+                ].map((item, idx) => (
+                  <div key={idx} className="flex items-start gap-4 group">
+                    <div className={`${goldText} mt-1 group-hover:scale-110 transition-transform`}>
+                      {item.icon}
+                    </div>
+                    <div>
+                      <p className="text-[10px] uppercase tracking-widest text-gray-400 font-bold">{item.label}</p>
+                      <p className="text-gray-800 font-medium">{item.value}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
 
-          {/* Social Section */}
-          <div className="bg-white/80 backdrop-blur-md p-8 rounded-3xl shadow-xl border border-gray-100">
+            <div>
+              <h2 className="text-xl font-serif mb-6 italic text-gray-900">Follow the Journey</h2>
+              <div className="flex gap-4">
+                <a
+                  href="#"
+                  className={`w-12 h-12 flex items-center justify-center rounded-full border ${goldBorder} ${goldText} hover:bg-[#C5A02E] hover:text-white transition-all duration-500 shadow-sm`}
+                >
+                  <Instagram size={20} />
+                </a>
+                <a
+                  href="#"
+                  className={`w-12 h-12 flex items-center justify-center rounded-full border ${goldBorder} ${goldText} hover:bg-[#C5A02E] hover:text-white transition-all duration-500 shadow-sm`}
+                >
+                  <Youtube size={20} />
+                </a>
+              </div>
+            </div>
+          </motion.div>
 
-            <h2 className="text-xl font-serif font-semibold text-gray-900 mb-6">
-              Follow Us
-            </h2>
+          {/* ================= RIGHT: CONTACT FORM ================= */}
+          <motion.div 
+            initial="hidden" 
+            whileInView="visible" 
+            viewport={{ once: true }}
+            variants={fadeUp}
+            className="lg:col-span-7"
+          >
+            <div className="bg-white p-8 md:p-12 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.04)] border border-gray-100">
+              <h2 className="text-2xl font-serif mb-8 text-center">Inquiry Form</h2>
+              
+              <form onSubmit={handleSubmit} className="space-y-8">
+                <div className="grid md:grid-cols-2 gap-8">
+                  <div className="relative">
+                    <input
+                      type="text"
+                      name="name"
+                      required
+                      value={formData.name}
+                      onChange={handleChange}
+                      placeholder="Your Full Name"
+                      className="w-full bg-transparent border-b border-gray-200 py-3 focus:outline-none focus:border-[#C5A02E] transition-colors placeholder:text-gray-300 font-light"
+                    />
+                  </div>
+                  <div className="relative">
+                    <input
+                      type="tel"
+                      name="phone"
+                      required
+                      value={formData.phone}
+                      onChange={handleChange}
+                      placeholder="Phone Number"
+                      className="w-full bg-transparent border-b border-gray-200 py-3 focus:outline-none focus:border-[#C5A02E] transition-colors placeholder:text-gray-300 font-light"
+                    />
+                  </div>
+                </div>
 
-            <a
-              href="https://www.instagram.com/yaal_bridal_jewels"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-4 p-4 rounded-xl hover:bg-pink-50 transition"
-            >
-              <Instagram className="text-pink-500" size={24} />
-              <span className="text-gray-700 font-medium">
-                @yaal_bridal_jewels
-              </span>
-            </a>
+                <div className="relative">
+                  <textarea
+                    name="message"
+                    required
+                    rows="4"
+                    value={formData.message}
+                    onChange={handleChange}
+                    placeholder="Tell us about your event (Date, Location, Requirements...)"
+                    className="w-full bg-transparent border-b border-gray-200 py-3 focus:outline-none focus:border-[#C5A02E] transition-colors placeholder:text-gray-300 font-light resize-none"
+                  ></textarea>
+                </div>
 
-            <a
-              href="https://youtube.com/@yaaljewellery"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-4 p-4 rounded-xl hover:bg-red-50 transition"
-            >
-              <Youtube className="text-red-500" size={24} />
-              <span className="text-gray-700 font-medium">
-                Yaal Jewellery Official
-              </span>
-            </a>
-
-          </div>
-
-          {/* Contact Form */}
-          <div className="bg-white/90 backdrop-blur-md p-8 rounded-3xl shadow-xl border border-gray-100">
-
-            <h2 className="text-xl font-serif font-semibold text-gray-900 mb-6">
-              Send a Message
-            </h2>
-
-            <form onSubmit={handleSubmit} className="space-y-6">
-
-              <input
-                type="text"
-                name="name"
-                placeholder="Your Name"
-                required
-                value={formData.name}
-                onChange={handleChange}
-                className="w-full border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-gold"
-              />
-
-              <input
-                type="tel"
-                name="phone"
-                placeholder="Your Phone Number"
-                required
-                value={formData.phone}
-                onChange={handleChange}
-                className="w-full border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-gold"
-              />
-
-              <textarea
-                name="message"
-                placeholder="Your Message"
-                rows="4"
-                required
-                value={formData.message}
-                onChange={handleChange}
-                className="w-full border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-gold"
-              ></textarea>
-
-              <button
-                type="submit"
-                className="w-full py-3 rounded-xl font-semibold uppercase tracking-wider text-white bg-gold hover:bg-gold-dark transition"
-              >
-                Send Message
-              </button>
-
-            </form>
-          </div>
+                <div className="pt-4">
+                  <motion.button
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    type="submit"
+                    className={`w-full ${goldBg} text-white py-4 rounded-full font-medium tracking-[0.2em] uppercase text-xs flex items-center justify-center gap-2 hover:brightness-110 transition shadow-lg shadow-[#C5A02E]/20`}
+                  >
+                    Send Inquiry <Send size={14} />
+                  </motion.button>
+                </div>
+              </form>
+            </div>
+          </motion.div>
 
         </div>
       </div>
-
-      {/* ================= CUSTOM STYLES ================= */}
-      <style>
-        {`
-          .particle {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background: rgba(212, 175, 55, 0.6);
-            border-radius: 50%;
-            animation: floatUp 6s linear infinite;
-            bottom: -10px;
-            left: 20%;
-          }
-
-          .delay1 { left: 40%; animation: floatUp 3s linear infinite; }
-          .delay2 { left: 60%; animation: floatUp 5s linear infinite; }
-          .delay3 { left: 75%; animation: floatUp 7s linear infinite; }
-          .delay4 { left: 90%; animation: floatUp 2s linear infinite; }
-
-          @keyframes floatUp {
-            0% {
-              transform: translateY(0);
-              opacity: 0;
-            }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% {
-              transform: translateY(-110vh);
-              opacity: 0;
-            }
-          }
-
-          @keyframes fadeIn {
-            from {
-              opacity: 0;
-              transform: translateY(20px);
-            }
-            to {
-              opacity: 1;
-              transform: translateY(0);
-            }
-          }
-
-          .animate-fadeIn {
-            animation: fadeIn 1s ease forwards;
-          }
-        `}
-      </style>
-
     </div>
   );
 };

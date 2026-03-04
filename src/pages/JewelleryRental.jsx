@@ -9,6 +9,7 @@ const JewelleryRental = () => {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
   const [maxPrice, setMaxPrice] = useState("");
+<<<<<<< HEAD
   const [selectedItem, setSelectedItem] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -31,6 +32,9 @@ const JewelleryRental = () => {
       document.body.style.overflow = "unset";
     };
   }, [selectedItem]);
+=======
+  const [showFilters, setShowFilters] = useState(false);
+>>>>>>> origin/development
 
   /* -------------------- Safe Price Parser -------------------- */
   const parsePrice = (price) => {
@@ -88,6 +92,7 @@ const JewelleryRental = () => {
   };
 
   return (
+<<<<<<< HEAD
     <div className="pt-20 pb-24 min-h-screen bg-gray-50/50">
       <div className="w-full px-4 sm:px-6 lg:px-12 xl:px-20">
         
@@ -108,34 +113,133 @@ const JewelleryRental = () => {
           >
             Premium bridal jewellery for your special day
           </motion.p>
+=======
+    <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white">
+
+      {/* ================= SMALL HERO ================= */}
+      <section className="relative h-[45vh] flex items-center justify-center overflow-hidden">
+
+        <div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{
+            backgroundImage:
+              "url('https://images.unsplash.com/photo-1617038220319-276d3cfab638?w=1920&q=80')",
+          }}
+        />
+
+        <div className="absolute inset-0 bg-black/60" />
+
+        <div className="relative z-10 text-center px-6">
+
+          <h1 className="text-4xl md:text-5xl font-serif text-white mb-3">
+            Jewellery Rental
+          </h1>
+
+          <p className="text-gray-200 max-w-xl mx-auto">
+            Choose from our premium bridal jewellery collection for your special day.
+          </p>
+
+        </div>
+
+      </section>
+
+      {/* ================= PAGE CONTENT ================= */}
+      <div className="py-16 w-full px-4 sm:px-6 lg:px-12 xl:px-20">
+
+        {/* ================= MOBILE FILTER TOGGLE ================= */}
+        <div className="lg:hidden mb-6">
+          <button
+            onClick={() => setShowFilters(!showFilters)}
+            className="w-full bg-white border border-gray-200 text-gray-800 py-3 rounded-xl font-semibold shadow-sm flex items-center justify-center gap-2 hover:bg-gray-50 transition"
+          >
+            Filters
+          </button>
+>>>>>>> origin/development
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-[280px_1fr] gap-10">
           {/* ================= FILTER SIDEBAR ================= */}
+<<<<<<< HEAD
           <aside className="hidden lg:block">
             <div className="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 sticky top-24">
               <h2 className="font-serif text-xl font-semibold mb-6">Filters</h2>
               <div className="space-y-4">
+=======
+          <div className={`${showFilters ? "block" : "hidden"} lg:block`}>
+            <div className="bg-white p-6 md:p-8 rounded-3xl shadow-lg h-fit lg:sticky lg:top-28 space-y-6 border border-gray-100">
+
+              <div className="flex justify-between items-center">
+                <h2 className="font-serif text-2xl font-semibold text-gray-900">
+                  Filters
+                </h2>
+
+                <button
+                  onClick={() => setShowFilters(false)}
+                  className="lg:hidden text-gray-400 hover:text-gray-600"
+                >
+                  ✕
+                </button>
+              </div>
+
+              {/* Search */}
+              <div>
+                <label className="block text-sm font-medium mb-2 text-gray-700">
+                  Search by Code
+                </label>
+
+>>>>>>> origin/development
                 <input
                   type="text"
                   placeholder="Search by Code"
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
+<<<<<<< HEAD
                   className="w-full border border-gray-200 rounded-xl px-4 py-3 focus:ring-2 focus:ring-gold/20 outline-none transition"
                 />
                 <select
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
                   className="w-full border border-gray-200 rounded-xl px-4 py-3 outline-none"
+=======
+                  className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-gold"
+                />
+              </div>
+
+              {/* Category */}
+              <div>
+                <label className="block text-sm font-medium mb-2 text-gray-700">
+                  Category
+                </label>
+
+                <select
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                  className="w-full border border-gray-300 rounded-xl px-4 py-3"
+>>>>>>> origin/development
                 >
                   {categories.map((cat) => (
                     <option key={cat} value={cat}>{cat}</option>
                   ))}
                 </select>
+<<<<<<< HEAD
                 <select
                   value={maxPrice}
                   onChange={(e) => setMaxPrice(e.target.value)}
                   className="w-full border border-gray-200 rounded-xl px-4 py-3 outline-none"
+=======
+              </div>
+
+              {/* Price */}
+              <div>
+                <label className="block text-sm font-medium mb-2 text-gray-700">
+                  Price Range
+                </label>
+
+                <select
+                  value={maxPrice}
+                  onChange={(e) => setMaxPrice(e.target.value)}
+                  className="w-full border border-gray-300 rounded-xl px-4 py-3"
+>>>>>>> origin/development
                 >
                   <option value="">All Prices</option>
                   <option value="3000">Below ₹3,000</option>
@@ -143,10 +247,15 @@ const JewelleryRental = () => {
                   <option value="10000">Below ₹10,000</option>
                 </select>
               </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/development
             </div>
           </aside>
 
           {/* ================= PRODUCT GRID ================= */}
+<<<<<<< HEAD
           <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
             <AnimatePresence>
               {filteredItems.map((item) => (
@@ -183,9 +292,74 @@ const JewelleryRental = () => {
               ))}
             </AnimatePresence>
           </motion.div>
+=======
+          <div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 md:gap-8">
+
+              {filteredItems.length === 0 ? (
+                <div className="col-span-full text-center text-gray-500 text-xl py-20">
+                  No jewellery found 😢
+                </div>
+              ) : (
+                filteredItems.map((item) => (
+
+                  <div
+                    key={item.id}
+                    className="bg-white rounded-3xl shadow-md hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 group flex flex-col"
+                  >
+
+                    {/* Image */}
+                    <div className="relative aspect-[4/5] overflow-hidden">
+
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        loading="lazy"
+                      />
+
+                      <div className="absolute top-3 right-3 bg-white/95 px-3 py-1 rounded-full text-xs font-semibold shadow">
+                        {item.code}
+                      </div>
+
+                    </div>
+
+                    {/* Content */}
+                    <div className="p-5 md:p-6 flex flex-col flex-1 text-center">
+
+                      <h3 className="font-serif text-lg font-semibold text-gray-900 mb-2">
+                        {item.name}
+                      </h3>
+
+                      <p className="text-gold font-bold text-lg mb-4">
+                        ₹{parsePrice(item.price).toLocaleString()} / Day
+                      </p>
+
+                      <button
+                        onClick={() => handleBook(item)}
+                        className="mt-auto w-full bg-gold text-white py-3 rounded-xl text-sm font-semibold uppercase tracking-wider hover:bg-gold-dark transition"
+                      >
+                        Book Now
+                      </button>
+
+                    </div>
+
+                  </div>
+
+                ))
+              )}
+
+            </div>
+
+          </div>
+
+>>>>>>> origin/development
         </div>
+
       </div>
 
+<<<<<<< HEAD
       {/* ================= LARGE PREVIEW MODAL ================= */}
       <AnimatePresence>
         {selectedItem && (
@@ -311,6 +485,8 @@ const JewelleryRental = () => {
           </motion.div>
         )}
       </AnimatePresence>
+=======
+>>>>>>> origin/development
     </div>
   );
 };
