@@ -20,7 +20,7 @@ export const rentalHeroData = {
 
 /* ---------------- CONFIG ---------------- */
 export const rentalConfig = {
-  phoneNumber: "919876543210",
+  phoneNumber: "919080533611",
   defaultDescription:
     "A masterfully crafted royal piece designed to elevate your bridal presence.",
   whatsappMessages: {

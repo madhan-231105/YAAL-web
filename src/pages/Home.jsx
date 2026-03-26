@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { services } from "../data/mockData"; // Existing services data
+import { services } from "../data/mockData"; 
 import CircularGallery from "../components/ui/CircularGallery";
 import { ChevronDown, Quote, ArrowRight, Star } from "lucide-react";
 
@@ -67,70 +67,88 @@ export default function Home() {
       </section>
 
       {/* ================= SERVICES SECTION ================= */}
-      <section className="bg-[#FCFBFA] py-32 px-6 md:px-20 text-[#111]">
-        <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-24 gap-8">
-            <div className="max-w-2xl">
-              <span className={`${goldText} text-xs font-black uppercase tracking-[0.4em] block mb-4`}>The Craft</span>
-              <h2 className="text-4xl md:text-6xl font-serif leading-tight">
-                Refining Your <br />
-                <span className="italic">Bridal Experience</span>
-              </h2>
-            </div>
-            <p className="text-gray-500 max-w-xs font-light text-sm tracking-wide leading-relaxed">
-At YAAL Jewellery, we believe that every woman should feel like royalty on her special day. We provide the best jewellery rental services, saree draping, and wedding plate decoration that will make your day unforgettable.
+{/* ================= SERVICES SECTION ================= */}
+<section className="bg-[#FCFBFA] py-32 px-6 md:px-20 text-[#111]">
+  <div className="max-w-7xl mx-auto">
+    <div className="flex flex-col md:flex-row md:items-end justify-between mb-24 gap-8">
+      <div className="max-w-2xl">
+        <span className={`${goldText} text-xs font-black uppercase tracking-[0.4em] block mb-4`}>The Craft</span>
+        <h2 className="text-4xl md:text-6xl font-serif leading-tight">
+          Refining Your <br />
+          <span className="italic">Bridal Experience</span>
+        </h2>
+      </div>
+      <p className="text-gray-500 max-w-xs font-light text-sm tracking-wide leading-relaxed">
+        At YAAL Jewellery, we believe that every woman should feel like royalty on her special day. We provide the best jewellery rental services, saree draping, and wedding plate decoration.
+      </p>
+    </div>
 
+    {/* Added border for mobile visibility and adjusted gap */}
+    <div className="grid md:grid-cols-3 gap-px bg-gray-200 border border-gray-200">
+      {services.map((service, index) => (
+        <div
+          key={index}
+          className={`
+            relative overflow-hidden p-12 md:p-16 transition-all duration-500 group
+            /* Mobile: Static Colored State */
+            bg-[#F9F6F0] 
+            /* Desktop: Starts white, colors on hover */
+            md:bg-[#FCFBFA] md:hover:bg-[#F9F6F0]
+          `}
+        >
+          <div className="relative z-10">
+            {/* Number: Colored on mobile, Gray on desktop (Gold on hover) */}
+            <span className="font-serif text-6xl absolute -top-8 -left-4 transition-colors text-[#C5A02E]/10 md:text-gray-200 md:group-hover:text-[#C5A02E]/10">
+              0{index + 1}
+            </span>
+
+            {/* Icon: Colored/Scaled on mobile, Grayscale on desktop */}
+            <div className={`
+              text-4xl mb-10 transition-all duration-700 transform 
+              grayscale-0 scale-110 
+              md:grayscale md:scale-100 md:group-hover:grayscale-0 md:group-hover:scale-110
+            `}>
+              {service.icon}
+            </div>
+
+            <h3 className="text-2xl font-serif mb-6">{service.title}</h3>
+            <p className="text-gray-500 font-light leading-relaxed text-sm">
+              {service.desc}
             </p>
           </div>
-
-          <div className="grid md:grid-cols-3 gap-1px bg-gray-200">
-            {services.map((service, index) => (
-              <motion.div
-                whileHover={{ backgroundColor: "#F9F6F0" }}
-                key={index}
-                className="bg-[#FCFBFA] p-12 md:p-16 transition-all duration-500 group relative overflow-hidden"
-              >
-                <div className="relative z-10">
-                  <span className="text-gray-200 font-serif text-6xl absolute -top-8 -left-4 group-hover:text-[#C5A02E]/10 transition-colors">0{index + 1}</span>
-                  <div className="text-4xl mb-10 grayscale group-hover:grayscale-0 transition-all duration-700 transform group-hover:scale-110">
-                    {service.icon}
-                  </div>
-                  <h3 className="text-2xl font-serif mb-6">{service.title}</h3>
-                  <p className="text-gray-500 font-light leading-relaxed text-sm">
-                    {service.desc}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
         </div>
-      </section>
+      ))}
+    </div>
+  </div>
+</section>
 
-      {/* ================= CIRCULAR GALLERY ================= */}
-      <section className="py-32 bg-[#050505] relative">
-        <div className="text-center mb-24 px-6 relative z-10">
-          <h2 className="text-4xl md:text-7xl font-serif mb-6 leading-none">
+      {/* ================= CIRCULAR GALLERY (REDUCED) ================= */}
+      <section className="py-20 bg-[#050505] relative overflow-hidden"> {/* Reduced py-32 to py-20 */}
+        <div className="text-center mb-12 px-6 relative z-10"> {/* Reduced mb-24 to mb-12 */}
+          <h2 className="text-3xl md:text-5xl font-serif mb-4 leading-none">
             Our <span className={`${goldText} italic`}>Real Brides</span>
           </h2>
-          <div className={`w-20 h-[1px] ${goldBg} mx-auto mb-8`} />
-          <p className="text-gray-500 text-sm tracking-[0.2em] uppercase max-w-2xl mx-auto font-bold">
+          <div className={`w-16 h-[1px] ${goldBg} mx-auto mb-6`} />
+          <p className="text-gray-500 text-[10px] tracking-[0.2em] uppercase max-w-2xl mx-auto font-bold">
             Moments Captured in Gold and Diamonds
           </p>
         </div>
 
-        <div className="h-[60vh] md:h-[700px] w-full relative z-10 grayscale hover:grayscale-0 transition-all duration-[2s]">
+        {/* Height reduced from h-[60vh]/700px to h-[45vh]/500px */}
+        <div className="h-[45vh] md:h-[500px] w-full relative z-10 grayscale hover:grayscale-0 transition-all duration-[2s]">
           <CircularGallery
             items={galleryItems}
             bend={0}
             textColor="#C5A02E"
             borderRadius={0.02}
-            font="24px Playfair Display"
-            scrollSpeed={2}
+            font="20px Playfair Display"
+            scrollSpeed={1.5}
           />
         </div>
 
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-[0.03] select-none">
-          <h2 className="text-[20vw] font-serif uppercase leading-none">YAAL</h2>
+        {/* Text reduced from 20vw to 12vw and opacity lowered */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-[0.02] select-none">
+          <h2 className="text-[12vw] font-serif uppercase leading-none tracking-tighter">YAAL</h2>
         </div>
       </section>
 

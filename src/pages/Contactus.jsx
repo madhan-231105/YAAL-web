@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Instagram, Youtube, Mail, Phone, MapPin, Send } from "lucide-react";
-import { motion } from "framer-motion";
+import { Instagram, Youtube, Mail, Phone, MapPin, Send, MessageCircle } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
@@ -8,6 +8,7 @@ const ContactUs = () => {
     phone: "",
     message: "",
   });
+  const [submitted, setSubmitted] = useState(false);
 
   const goldText = "text-[#C5A02E]";
   const goldBg = "bg-[#C5A02E]";
@@ -19,34 +20,41 @@ const ContactUs = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert("Thank you! Your inquiry has been sent to YAAL Jewellery.");
-    setFormData({ name: "", phone: "", message: "" });
+    // Simulate API call
+    console.log("Form Submitted:", formData);
+    setSubmitted(true);
+    setTimeout(() => {
+      setSubmitted(false);
+      setFormData({ name: "", phone: "", message: "" });
+    }, 5000);
   };
 
   const fadeUp = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" } },
   };
 
   return (
-    <div className="bg-[#FCFBFA] min-h-screen pb-24 overflow-hidden">
+    <div className="bg-[#FCFBFA] min-h-screen pb-20 overflow-x-hidden selection:bg-[#C5A02E]/20">
+      
       {/* ================= HERO SECTION ================= */}
-      <section className="relative pt-32 pb-16 px-6 text-center">
-         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:32px_32px] opacity-40 -z-10" />
+      <section className="relative pt-24 md:pt-32 pb-12 md:pb-16 px-6 text-center">
+        {/* Subtle Decorative Pattern */}
+        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(#C5A02E_0.5px,transparent_0.5px)] [background-size:24px_24px] opacity-[0.15] -z-10" />
         
         <motion.div initial="hidden" animate="visible" variants={fadeUp}>
-          <span className={`inline-block uppercase tracking-[0.3em] text-xs font-bold mb-4 ${goldText}`}>
+          <span className={`inline-block uppercase tracking-[0.4em] text-[10px] md:text-xs font-bold mb-4 ${goldText}`}>
             Get In Touch
           </span>
-          <h1 className="text-4xl md:text-6xl font-serif font-light leading-tight mb-6">
+          <h1 className="text-4xl md:text-7xl font-serif font-light leading-tight mb-6 text-gray-900">
             Let’s Create Your <br /> <span className="italic">Bridal Legacy</span>
           </h1>
-          <div className={`w-16 h-[1px] ${goldBg} mx-auto mb-8`} />
+          <div className={`w-20 h-[1px] ${goldBg} mx-auto`} />
         </motion.div>
       </section>
 
       <div className="max-w-7xl mx-auto px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
           
           {/* ================= LEFT: CONTACT INFO ================= */}
           <motion.div 
@@ -54,49 +62,68 @@ const ContactUs = () => {
             whileInView="visible" 
             viewport={{ once: true }}
             variants={fadeUp}
-            className="lg:col-span-5 space-y-12"
+            className="lg:col-span-5 space-y-10"
           >
             <div>
-              <h2 className="text-2xl font-serif mb-6 italic">Connect With Us</h2>
-              <p className="text-gray-500 font-light leading-relaxed mb-8">
+              <h2 className="text-2xl md:text-3xl font-serif mb-6 italic text-gray-900">Connect With Us</h2>
+              <p className="text-gray-500 font-light leading-relaxed mb-10 text-sm md:text-base">
                 Whether you're looking for the perfect temple jewellery set or 
-                professional saree draping, our stylists are here to assist you.
+                professional saree draping, our stylists are here to assist you in making your day unforgettable.
               </p>
               
-              <div className="space-y-6">
+              <div className="space-y-8">
                 {[
-                  { icon: <Phone size={20} />, label: "Call / WhatsApp", value: "+91 98765 43210" },
-                  { icon: <Mail size={20} />, label: "Email", value: "hello@yaaljewellery.com" },
-                  { icon: <MapPin size={20} />, label: "Boutique", value: "123 Elegance Street, Chennai, TN" }
+                  { 
+                    icon: <Phone size={18} />, 
+                    label: "Call / WhatsApp", 
+                    value: "+91 90805 33611",
+                    link: "tel:+919080533611" 
+                  },
+                  { 
+                    icon: <Mail size={18} />, 
+                    label: "Email", 
+                    value: "hello@yaaljewellery.com",
+                    link: "mailto:hello@yaaljewellery.com" 
+                  },
+                  { 
+                    icon: <MapPin size={18} />, 
+                    label: "The Boutique", 
+                    value: "KPM, Vattamalai, Ethirmedu, Near JKKN College, Erode, Tamil Nadu - 638183",
+                    link: "#" 
+                  }
                 ].map((item, idx) => (
-                  <div key={idx} className="flex items-start gap-4 group">
-                    <div className={`${goldText} mt-1 group-hover:scale-110 transition-transform`}>
+                  <a href={item.link} key={idx} className="flex items-start gap-5 group cursor-default lg:cursor-pointer">
+                    <div className={`w-10 h-10 rounded-full border border-gray-100 flex items-center justify-center ${goldText} group-hover:bg-[#C5A02E] group-hover:text-white transition-all duration-500 shrink-0`}>
                       {item.icon}
                     </div>
                     <div>
-                      <p className="text-[10px] uppercase tracking-widest text-gray-400 font-bold">{item.label}</p>
-                      <p className="text-gray-800 font-medium">{item.value}</p>
+                      <p className="text-[9px] uppercase tracking-[0.2em] text-gray-400 font-bold mb-1">{item.label}</p>
+                      <p className="text-gray-800 font-medium text-sm md:text-base leading-relaxed group-hover:text-[#C5A02E] transition-colors">{item.value}</p>
                     </div>
-                  </div>
+                  </a>
                 ))}
               </div>
             </div>
 
-            <div>
-              <h2 className="text-xl font-serif mb-6 italic text-gray-900">Follow the Journey</h2>
+            {/* Social Links */}
+            <div className="pt-4">
+              <h2 className="text-lg font-serif mb-6 italic text-gray-900">Follow the Journey</h2>
               <div className="flex gap-4">
-                <a
-                  href="#"
-                  className={`w-12 h-12 flex items-center justify-center rounded-full border ${goldBorder} ${goldText} hover:bg-[#C5A02E] hover:text-white transition-all duration-500 shadow-sm`}
-                >
-                  <Instagram size={20} />
-                </a>
-                <a
-                  href="#"
-                  className={`w-12 h-12 flex items-center justify-center rounded-full border ${goldBorder} ${goldText} hover:bg-[#C5A02E] hover:text-white transition-all duration-500 shadow-sm`}
-                >
-                  <Youtube size={20} />
-                </a>
+                {[
+                  { icon: <Instagram size={20} />, link: "https://www.instagram.com/yaal_bridal_jewels/" },
+                  { icon: <Youtube size={20} />, link: "https://www.youtube.com/@VeluElectricals-zi5zf" },
+                  { icon: <MessageCircle size={20} />, link: "https://wa.me/919080533611" }
+                ].map((social, i) => (
+                  <a
+                    key={i}
+                    href={social.link}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={`w-12 h-12 flex items-center justify-center rounded-full border ${goldBorder} ${goldText} hover:bg-[#C5A02E] hover:text-white transition-all duration-500 shadow-sm`}
+                  >
+                    {social.icon}
+                  </a>
+                ))}
               </div>
             </div>
           </motion.div>
@@ -109,58 +136,93 @@ const ContactUs = () => {
             variants={fadeUp}
             className="lg:col-span-7"
           >
-            <div className="bg-white p-8 md:p-12 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.04)] border border-gray-100">
-              <h2 className="text-2xl font-serif mb-8 text-center">Inquiry Form</h2>
+            <div className="bg-white p-8 md:p-12 rounded-3xl shadow-[0_30px_60px_rgba(0,0,0,0.03)] border border-gray-50 relative overflow-hidden">
               
-              <form onSubmit={handleSubmit} className="space-y-8">
-                <div className="grid md:grid-cols-2 gap-8">
-                  <div className="relative">
-                    <input
-                      type="text"
-                      name="name"
-                      required
-                      value={formData.name}
-                      onChange={handleChange}
-                      placeholder="Your Full Name"
-                      className="w-full bg-transparent border-b border-gray-200 py-3 focus:outline-none focus:border-[#C5A02E] transition-colors placeholder:text-gray-300 font-light"
-                    />
-                  </div>
-                  <div className="relative">
-                    <input
-                      type="tel"
-                      name="phone"
-                      required
-                      value={formData.phone}
-                      onChange={handleChange}
-                      placeholder="Phone Number"
-                      className="w-full bg-transparent border-b border-gray-200 py-3 focus:outline-none focus:border-[#C5A02E] transition-colors placeholder:text-gray-300 font-light"
-                    />
-                  </div>
-                </div>
-
-                <div className="relative">
-                  <textarea
-                    name="message"
-                    required
-                    rows="4"
-                    value={formData.message}
-                    onChange={handleChange}
-                    placeholder="Tell us about your event (Date, Location, Requirements...)"
-                    className="w-full bg-transparent border-b border-gray-200 py-3 focus:outline-none focus:border-[#C5A02E] transition-colors placeholder:text-gray-300 font-light resize-none"
-                  ></textarea>
-                </div>
-
-                <div className="pt-4">
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    type="submit"
-                    className={`w-full ${goldBg} text-white py-4 rounded-full font-medium tracking-[0.2em] uppercase text-xs flex items-center justify-center gap-2 hover:brightness-110 transition shadow-lg shadow-[#C5A02E]/20`}
+              <AnimatePresence mode="wait">
+                {!submitted ? (
+                  <motion.div
+                    key="form"
+                    initial={{ opacity: 1 }}
+                    exit={{ opacity: 0, x: -20 }}
                   >
-                    Send Inquiry <Send size={14} />
-                  </motion.button>
-                </div>
-              </form>
+                    <h2 className="text-2xl font-serif mb-2 text-gray-900">Inquiry Form</h2>
+                    <p className="text-gray-400 text-xs mb-10 tracking-wide uppercase">We typically respond within 24 hours</p>
+                    
+                    <form onSubmit={handleSubmit} className="space-y-10">
+                      <div className="grid md:grid-cols-2 gap-10">
+                        <div className="relative group">
+                          <input
+                            type="text"
+                            name="name"
+                            required
+                            value={formData.name}
+                            onChange={handleChange}
+                            className="w-full bg-transparent border-b border-gray-200 py-3 focus:outline-none focus:border-[#C5A02E] transition-colors placeholder:text-gray-300 font-light text-gray-800"
+                            placeholder="Your Full Name"
+                          />
+                        </div>
+                        <div className="relative group">
+                          <input
+                            type="tel"
+                            name="phone"
+                            required
+                            value={formData.phone}
+                            onChange={handleChange}
+                            className="w-full bg-transparent border-b border-gray-200 py-3 focus:outline-none focus:border-[#C5A02E] transition-colors placeholder:text-gray-300 font-light text-gray-800"
+                            placeholder="Phone Number"
+                          />
+                        </div>
+                      </div>
+
+                      <div className="relative">
+                        <textarea
+                          name="message"
+                          required
+                          rows="4"
+                          value={formData.message}
+                          onChange={handleChange}
+                          className="w-full bg-transparent border-b border-gray-200 py-3 focus:outline-none focus:border-[#C5A02E] transition-colors placeholder:text-gray-300 font-light text-gray-800 resize-none"
+                          placeholder="Tell us about your event (Date, Requirements...)"
+                        ></textarea>
+                      </div>
+
+                      <div className="pt-4 flex flex-col md:flex-row gap-4">
+                        <motion.button
+                          whileHover={{ scale: 1.01 }}
+                          whileTap={{ scale: 0.99 }}
+                          type="submit"
+                          className={`flex-1 ${goldBg} text-white py-5 rounded-2xl font-bold tracking-[0.2em] uppercase text-[10px] flex items-center justify-center gap-3 hover:brightness-110 transition shadow-xl shadow-[#C5A02E]/20`}
+                        >
+                          Send Inquiry <Send size={14} />
+                        </motion.button>
+                        
+                        <button
+                          type="button"
+                          onClick={() => window.open('https://wa.me/919080533611', '_blank')}
+                          className="flex-1 bg-black text-white py-5 rounded-2xl font-bold tracking-[0.2em] uppercase text-[10px] flex items-center justify-center gap-3 hover:bg-gray-800 transition shadow-xl"
+                        >
+                          WhatsApp Us <MessageCircle size={14} />
+                        </button>
+                      </div>
+                    </form>
+                  </motion.div>
+                ) : (
+                  <motion.div 
+                    key="success"
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="py-20 text-center"
+                  >
+                    <div className={`w-20 h-20 ${goldBg} text-white rounded-full flex items-center justify-center mx-auto mb-8 shadow-2xl shadow-[#C5A02E]/30`}>
+                      <Send size={32} />
+                    </div>
+                    <h2 className="text-3xl font-serif mb-4 text-gray-900">Thank You, {formData.name.split(' ')[0]}!</h2>
+                    <p className="text-gray-500 max-w-sm mx-auto leading-relaxed">
+                      Your inquiry has been received. Our bridal stylists will contact you shortly to discuss your requirements.
+                    </p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </motion.div>
 
